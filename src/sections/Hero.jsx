@@ -62,20 +62,6 @@ export default function Hero() {
           />
         </div>
 
-        {/* Right Background */}
-        <div
-          className="relative overflow-hidden"
-          style={{ width: '22%' }}
-        >
-          <img
-            src="/images/hero-main.jpg"
-            alt=""
-            className="w-full h-full object-cover"
-            style={{
-              filter: 'brightness(0.5)',
-            }}
-          />
-        </div>
       </div>
 
      {/* Floating Card */}
