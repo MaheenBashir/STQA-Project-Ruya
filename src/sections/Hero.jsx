@@ -72,7 +72,7 @@ export default function Hero() {
               borderRadius: '10px',
               position: 'absolute',
               left: '-80px',
-              bottom: '50px',
+              bottom: '20px',
               zIndex: 10,
             }}
           >
