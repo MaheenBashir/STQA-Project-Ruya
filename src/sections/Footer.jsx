@@ -43,6 +43,7 @@ export default function Footer() {
                     display: 'block',
                     opacity: 0.82,
                     filter: 'sepia(10%) brightness(0.95)',
+                    objectPosition: src.includes('dried-roses') ? 'top' : 'center',
                   }}
                 />
               </div>

@@ -106,16 +106,13 @@ export default function Hero() {
       }}
     >
       <img
-        src="/images/hero-main.jpg"   
-        alt="Secondary Image"
+        src="/images/writer-desk.jpg"
+        alt="Writer"
         className="w-full object-cover rounded-md"
         style={{
           height: '220px',
         }}
       />
-      <p className="text-center py-2 text-[#F4EBD9]/70 text-xs tracking-[0.3em] uppercase">
-        Image
-      </p>
     </div>
 
     {/* Main Card — the big one in front */}
@@ -138,9 +135,6 @@ export default function Hero() {
           height: '320px',
         }}
       />
-      <p className="text-center py-3 text-[#F4EBD9]/70 text-xs tracking-[0.3em] uppercase">
-        Image
-      </p>
     </div>
 
   </div>
