@@ -25,7 +25,6 @@ export default function Hero() {
       ref={ref}
       className="relative overflow-visible bg-[#F4EBD9]"
     >
-
       {/* Background Images */}
       <div
         className="relative flex w-full overflow-hidden"
@@ -34,7 +33,6 @@ export default function Hero() {
           minHeight: '520px',
         }}
       >
-
         {/* Left Background */}
         <div
           className="relative overflow-hidden"
@@ -78,72 +76,72 @@ export default function Hero() {
         </div>
       </div>
 
-     {/* Stacked Floating Cards */}
-<div
-  className="relative flex justify-center"
-  style={{
-    marginTop: '-80px',
-    zIndex: 20,
-    paddingBottom: '40px',
-  }}
->
-
-  {/* Wrapper to hold both cards side by side */}
-  <div className="relative flex items-end">
-
-    {/* Small Half Card — peeking out from the left, rotated */}
-    <div
-      className="fade-in shadow-2xl"
-      style={{
-        padding: '8px 8px 8px',
-        width: '140px',
-        backgroundColor: '#52382C',
-        borderRadius: '10px',
-        marginRight: '-25px',
-        zIndex: 10,
-        transform: 'rotate(-6deg)',
-        transformOrigin: 'bottom right',
-        marginBottom: '20px',
-        flexShrink: 0,
-      }}
-    >
-      <img
-        src="/images/writer-desk.jpg"
-        alt="Writer"
-        className="w-full object-cover rounded-md"
+      {/* Floating Cards Section */}
+      <div
+        className="relative flex justify-center"
         style={{
-          height: '175px',
-          objectPosition: 'center',
+          marginTop: '-90px',
+          zIndex: 20,
+          paddingBottom: '50px',
         }}
-      />
-    </div>
+      >
+        {/* Wrapper */}
+        <div className="relative flex items-end justify-center">
 
-    {/* Main Card — the big one in front, perfectly straight */}
-    <div
-      className="fade-in shadow-2xl"
-      style={{
-        padding: '10px 10px 10px',
-        width: '320px',
-        backgroundColor: '#52382C',
-        borderRadius: '10px',
-        zIndex: 20,
-        position: 'relative',
-        flexShrink: 0,
-      }}
-    >
-      <img
-        src="/images/writer-desk.jpg"
-        alt="Writer Desk"
-        className="w-full object-cover rounded-md"
-        style={{
-          height: '280px',
-          objectPosition: 'center',
-        }}
-      />
-    </div>
+          {/* Small Floating Card */}
+          <div
+            className="fade-in shadow-2xl absolute"
+            style={{
+              padding: '8px',
+              width: '115px',
+              backgroundColor: '#52382C',
+              borderRadius: '10px',
+              zIndex: 15,
 
-  </div>
-</div>
-</section>
+              // Position
+              left: '-45px',
+              bottom: '22px',
+
+              // Rotation
+              transform: 'rotate(-8deg)',
+              transformOrigin: 'bottom right',
+            }}
+          >
+            <img
+              src="/images/writer-desk.jpg"
+              alt="Writer"
+              className="w-full object-cover rounded-md"
+              style={{
+                height: '150px',
+                objectPosition: 'center',
+              }}
+            />
+          </div>
+
+          {/* Main Card */}
+          <div
+            className="fade-in shadow-2xl"
+            style={{
+              padding: '10px',
+              width: '320px',
+              backgroundColor: '#52382C',
+              borderRadius: '10px',
+              zIndex: 20,
+              position: 'relative',
+            }}
+          >
+            <img
+              src="/images/writer-desk.jpg"
+              alt="Writer Desk"
+              className="w-full object-cover rounded-md"
+              style={{
+                height: '280px',
+                objectPosition: 'center',
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
