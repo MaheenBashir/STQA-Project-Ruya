@@ -35,20 +35,7 @@ export default function Hero() {
         }}
       >
 
-        {/* Left Background */}
-        <div
-          className="relative overflow-hidden"
-          style={{ width: '22%' }}
-        >
-          <img
-            src="/images/hero-main.jpg"
-            alt=""
-            className="w-full h-full object-cover object-left"
-            style={{
-              filter: 'brightness(0.45)',
-            }}
-          />
-        </div>
+        
 
         {/* Center Background */}
         <div className="relative flex-1 overflow-hidden">
