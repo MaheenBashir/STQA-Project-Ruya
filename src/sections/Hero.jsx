@@ -82,27 +82,29 @@ export default function Hero() {
 <div
   className="relative flex justify-center"
   style={{
-    marginTop: '-100px',
+    marginTop: '-80px',
     zIndex: 20,
+    paddingBottom: '40px',
   }}
 >
 
   {/* Wrapper to hold both cards side by side */}
   <div className="relative flex items-end">
 
-    {/* Small Half Card — peeking out from the left */}
+    {/* Small Half Card — peeking out from the left, rotated */}
     <div
       className="fade-in shadow-2xl"
       style={{
-        padding: '10px 10px 5px',
-        width: '180px',              
+        padding: '8px 8px 8px',
+        width: '140px',
         backgroundColor: '#52382C',
         borderRadius: '10px',
-        marginRight: '-30px',        
+        marginRight: '-25px',
         zIndex: 10,
-        transform: 'rotate(-5deg)',  
+        transform: 'rotate(-6deg)',
         transformOrigin: 'bottom right',
-        marginBottom: '10px',
+        marginBottom: '20px',
+        flexShrink: 0,
       }}
     >
       <img
@@ -110,21 +112,23 @@ export default function Hero() {
         alt="Writer"
         className="w-full object-cover rounded-md"
         style={{
-          height: '220px',
+          height: '175px',
+          objectPosition: 'center',
         }}
       />
     </div>
 
-    {/* Main Card — the big one in front */}
+    {/* Main Card — the big one in front, perfectly straight */}
     <div
       className="fade-in shadow-2xl"
       style={{
-        padding: '10px 10px 5px',
-        width: '380px',
+        padding: '10px 10px 10px',
+        width: '320px',
         backgroundColor: '#52382C',
         borderRadius: '10px',
         zIndex: 20,
         position: 'relative',
+        flexShrink: 0,
       }}
     >
       <img
@@ -132,13 +136,14 @@ export default function Hero() {
         alt="Writer Desk"
         className="w-full object-cover rounded-md"
         style={{
-          height: '320px',
+          height: '280px',
+          objectPosition: 'center',
         }}
       />
     </div>
 
   </div>
-</div>   
+</div>
 </section>
   )
 }
