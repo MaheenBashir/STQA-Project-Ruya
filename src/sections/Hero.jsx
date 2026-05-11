@@ -40,7 +40,7 @@ export default function Hero() {
         {/* Center Background */}
         <div className="relative flex-1 overflow-hidden">
           <img
-            src="/images/hero-main.jpg"
+            src="/images/Menu.png"
             alt=""
             className="w-full h-full object-cover object-center"
             style={{

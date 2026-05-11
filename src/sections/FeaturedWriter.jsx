@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function FeaturedWriter() {
   const ref = useRef()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -19,22 +21,14 @@ export default function FeaturedWriter() {
       id="writers"
       ref={ref}
       className="relative min-h-screen overflow-hidden"
-      style={{ backgroundColor: '#100606' }}
+      style={{ backgroundColor: '#49111C' }}
     >
-      {/* Background: fall collage mood board very dimmed */}
-      <div className="absolute inset-0">
-        <img
-          src="/images/fall-collage.jpg"
-          alt=""
-          className="w-full h-full object-cover opacity-12"
-          style={{ filter: 'brightness(0.3) sepia(30%)' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#100606] via-[#100606]/85 to-[#100606]/50" />
-      </div>
 
       {/* Side issue strip */}
-      <div className="absolute right-0 top-0 bottom-0 w-10 flex items-center justify-center"
-        style={{ backgroundColor: 'rgba(107,26,26,0.25)', borderLeft: '1px solid rgba(201,169,110,0.1)' }}>
+      <div
+        className="absolute right-0 top-0 bottom-0 w-10 flex items-center justify-center"
+        style={{ backgroundColor: 'rgba(107,26,26,0.25)', borderLeft: '1px solid rgba(201,169,110,0.1)' }}
+      >
         <p
           className="font-body text-[#F4EDE0]/30 text-xs tracking-[0.3em] uppercase"
           style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
@@ -58,6 +52,7 @@ export default function FeaturedWriter() {
 
           {/* Left – writer info */}
           <div className="space-y-8">
+
             <div className="fade-in">
               <span className="text-[#C9A96E] text-xs tracking-[0.4em] uppercase font-body block mb-2">
                 Featured Writer
@@ -84,30 +79,41 @@ export default function FeaturedWriter() {
             </div>
 
             <div className="fade-in flex gap-4 flex-wrap">
-              <button className="font-body text-xs tracking-[0.3em] uppercase text-[#FAF5EC] border border-[#FAF5EC]/30 px-6 py-3 hover:bg-[#FAF5EC] hover:text-[#1A0C0C] transition-all duration-300">
+              <button
+                onClick={() => navigate('/issue/4')}
+                className="font-body text-xs tracking-[0.3em] uppercase text-[#FAF5EC] border border-[#FAF5EC]/30 px-6 py-3 hover:bg-[#FAF5EC] hover:text-[#1A0C0C] transition-all duration-300"
+              >
                 Read Their Work
               </button>
-              <button className="font-body text-xs tracking-[0.3em] uppercase text-[#F4EDE0]/40 hover:text-[#C9A96E] transition-colors duration-300 px-4">
-                Read Their Work →
-              </button>
             </div>
-          </div>
 
-          {/* Right – poetry roses image */}
+          </div>
+          {/* End Left column */}
+
+          {/* Right – featured writer image */}
           <div className="fade-in relative">
-            <div className="overflow-hidden shadow-2xl" style={{ maxWidth: '400px', marginLeft: 'auto', border: '1px solid rgba(201,169,110,0.1)' }}>
+            <div
+              className="overflow-hidden shadow-2xl"
+              style={{ maxWidth: '400px', marginLeft: 'auto', border: '1px solid rgba(201,169,110,0.1)' }}
+            >
               <img
-                src="/images/poetry-roses.jpg"
+                src="/images/Featured Writer.jpeg"
                 alt="Poetry and roses"
                 className="w-full h-[460px] object-cover hover:scale-105 transition-transform duration-700"
                 style={{ filter: 'brightness(0.85) sepia(10%)' }}
               />
             </div>
-            {/* Accent lines */}
+            {/* Accent line */}
             <div className="absolute -left-4 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-[#C9A96E]/35 to-transparent" />
           </div>
+          {/* End Right column */}
+
         </div>
+        {/* End grid */}
+
       </div>
+      {/* End container */}
+
     </section>
   )
 }
