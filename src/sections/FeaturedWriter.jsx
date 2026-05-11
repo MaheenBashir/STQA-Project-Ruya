@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 
 export default function FeaturedWriter() {
   const ref = useRef()
