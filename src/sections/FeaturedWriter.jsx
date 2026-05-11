@@ -21,13 +21,13 @@ export default function FeaturedWriter() {
       id="writers"
       ref={ref}
       className="relative min-h-screen overflow-hidden"
-      style={{ backgroundColor: '#3A0A0A' }}
+      style={{ backgroundColor: '#1C0706' }}
     >
 
       {/* Side issue strip */}
       <div
         className="absolute right-0 top-0 bottom-0 w-10 flex items-center justify-center"
-        style={{ backgroundColor: 'rgba(107,26,26,0.25)', borderLeft: '1px solid rgba(201,169,110,0.1)' }}
+        style={{ backgroundColor: 'rgba(28,7,6,1)', borderLeft: '1px solid rgba(28,7,6,1)' }}
       >
         <p
           className="font-body text-[#F4EDE0]/30 text-xs tracking-[0.3em] uppercase"
