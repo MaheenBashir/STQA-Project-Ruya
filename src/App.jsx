@@ -11,7 +11,7 @@ import IssuePage from './pages/IssuePage'
 
 function HomePage() {
   return (
-    <div className="font-body overflow-x-hidden">
+    <div className="font-body">
       <Navbar />
       <Hero />
       <Intro />
