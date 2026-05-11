@@ -1,344 +1,262 @@
-import { useParams, Link } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 const ISSUES = [
-  {
-    id: 1,
-    title: 'Midwinter Echoes',
-    date: 'January 2025',
-    tag: 'Prose',
-    desc: 'A quiet collection of dream-worn reflections and candle-lit memories.',
-    img: '/cards/card1.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 1.png',
-    color: '#7C4A3A',
-  },
-  {
-    id: 2,
-    title: 'Tides of February',
-    date: 'February 2025',
-    tag: 'Ocean Symbolism',
-    desc: 'Poems and pieces shaped by deep waters, constellations, and tender longing.',
-    img: '/cards/card2.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 2.png',
-    color: '#3A5A7C',
-  },
-  {
-    id: 3,
-    title: 'Hearts & Letters',
-    date: 'March 2025',
-    tag: 'Visual Poetry',
-    desc: 'Explorations of shadow, softness, and the fragile moments between day and night.',
-    img: '/cards/card3.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 3.png',
-    color: '#7C3A4A',
-  },
-  {
-    id: 4,
-    title: 'Blurred Silhouettes',
-    date: 'April 2025',
-    tag: 'Poetry',
-    desc: 'A study of distance, identity, and the quiet spaces we inhabit.',
-    img: '/cards/card4.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 4.png',
-    color: '#4A3A7C',
-  },
-  {
-    id: 5,
-    title: 'Nocturne in Ink',
-    date: 'May 2025',
-    tag: 'Dark Academia',
-    desc: 'Dark, minimal meditations written in the language of night.',
-    img: '/cards/card5.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 5.png',
-    color: '#2A2A2A',
-  },
-  {
-    id: 6,
-    title: 'Pastoral Fragments',
-    date: 'June 2025',
-    tag: 'Nostalgia & Memory',
-    desc: 'A collage of memory, landscape, and the soft stories hidden in the countryside.',
-    img: '/cards/card6.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 6.png',
-    color: '#3A5A3A',
-  },
-  {
-    id: 7,
-    title: 'Rooms of Light',
-    date: 'July 2025',
-    tag: 'Feminine Softness',
-    desc: 'An intimate visual diary of stillness, femininity, and luminous spaces.',
-    img: '/cards/card7.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 7.png',
-    color: '#7C6A3A',
-  },
-  {
-    id: 8,
-    title: 'Ink & Reverie',
-    date: 'August 2025',
-    tag: 'Sketchbook Visuals',
-    desc: 'A swirling mix of sketches, handwritten thoughts, and restless imagination.',
-    img: '/cards/card8.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 8.png',
-    color: '#5A3A2A',
-  },
-  {
-    id: 9,
-    title: 'Letters from Another Summer',
-    date: 'September 2025',
-    tag: 'Vintage Storytelling',
-    desc: 'Vintage notes, sun-worn facades, and stories pressed into postcards.',
-    img: '/cards/card9.png',
-    pdf: '/Magazine_pdf_final.pdf',
-    mockup: '/mockups/Ruya Edit 9.png',
-    color: '#6A5A3A',
-  },
+  { id: 1, title: 'Midwinter Echoes', date: 'January 2025', tag: 'Prose', desc: 'A quiet collection of dream-worn reflections and candle-lit memories.', full: '/mockups/Ruya Edit 1.png' },
+  { id: 2, title: 'Tides of February', date: 'February 2025', tag: 'Ocean Symbolism', desc: 'Poems and pieces shaped by deep waters, constellations, and tender longing.', full: '/mockups/Ruya Edit 2.png' },
+  { id: 3, title: 'Hearts & Letters', date: 'March 2025', tag: 'Visual Poetry', desc: 'Explorations of shadow, softness, and the fragile moments between day and night.', full: '/mockups/Ruya Edit 3.png' },
+  { id: 4, title: 'Blurred Silhouettes', date: 'April 2025', tag: 'Poetry', desc: 'A study of distance, identity, and the quiet spaces we inhabit.', full: '/mockups/Ruya Edit 4.png' },
+  { id: 5, title: 'Nocturne in Ink', date: 'May 2025', tag: 'Dark Academia', desc: 'Dark, minimal meditations written in the language of night.', full: '/mockups/Ruya Edit 5.png' },
+  { id: 6, title: 'Pastoral Fragments', date: 'June 2025', tag: 'Nostalgia & Memory', desc: 'A collage of memory, landscape, and the soft stories hidden in the countryside.', full: '/mockups/Ruya Edit 6.png' },
+  { id: 7, title: 'Rooms of Light', date: 'July 2025', tag: 'Feminine Softness', desc: 'An intimate visual diary of stillness, femininity, and luminous spaces.', full: '/mockups/Ruya Edit 7.png' },
+  { id: 8, title: 'Ink & Reverie', date: 'August 2025', tag: 'Sketchbook Visuals', desc: 'A swirling mix of sketches, handwritten thoughts, and restless imagination.', full: '/mockups/Ruya Edit 8.png' },
+  { id: 9, title: 'Letters from Another Summer', date: 'September 2025', tag: 'Vintage Storytelling', desc: 'Vintage notes, sun-worn facades, and stories pressed into postcards.', full: '/mockups/Ruya Edit 9.png' },
 ]
 
-export default function IssuePage() {
-  const { id } = useParams()
-  const issueId = parseInt(id, 10)
-  const issue = ISSUES.find((i) => i.id === issueId)
-  const [activeTab, setActiveTab] = useState('mockup')
-  const headerRef = useRef()
-
+function Lightbox({ issue, onClose, onPrev, onNext, hasPrev, hasNext }) {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    const timer = setTimeout(() => {
-      headerRef.current?.classList.add('visible')
-    }, 100)
-    return () => clearTimeout(timer)
-  }, [issueId])
-
-  if (!issue) {
-    return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center gap-6"
-        style={{ backgroundColor: '#0d0606' }}
-      >
-        <p className="font-display text-[#F4EDE0]/50 text-2xl">Issue not found.</p>
-        <Link
-          to="/"
-          className="font-body text-xs tracking-[0.3em] uppercase text-[#C9A96E] border border-[#C9A96E]/30 px-6 py-2 hover:bg-[#C9A96E]/10 transition-colors"
-        >
-          ← Back to Gallery
-        </Link>
-      </div>
-    )
-  }
-
-  const prevIssue = ISSUES.find((i) => i.id === issueId - 1)
-  const nextIssue = ISSUES.find((i) => i.id === issueId + 1)
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft' && hasPrev) onPrev()
+      if (e.key === 'ArrowRight' && hasNext) onNext()
+    }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose, onPrev, onNext, hasPrev, hasNext])
 
   return (
-    <div style={{ backgroundColor: '#0d0606', minHeight: '100vh' }}>
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center"
+      style={{ backgroundColor: 'rgba(8,2,2,0.96)' }}
+      onClick={onClose}
+    >
+      <div className="absolute inset-0" style={{ backdropFilter: 'blur(10px)' }} />
 
-      {/* Hero banner */}
-      <div className="relative overflow-hidden" style={{ height: '320px' }}>
-        <img
-          src={issue.img}
-          alt={issue.title}
-          className="w-full h-full object-cover"
-          style={{ filter: 'brightness(0.35) saturate(0.8) sepia(15%)' }}
-        />
-        {/* Gradient overlay */}
+      <div
+        className="relative z-10 flex flex-col mx-4"
+        style={{ maxWidth: '900px', width: '100%', maxHeight: '94vh' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Top bar */}
         <div
-          className="absolute inset-0"
+          className="flex items-center justify-between px-5 py-3 flex-shrink-0"
           style={{
-            background: `linear-gradient(to bottom, rgba(13,6,6,0.3) 0%, rgba(13,6,6,0.85) 100%)`,
+            background: 'rgba(13,6,6,0.95)',
+            border: '1px solid rgba(201,169,110,0.2)',
+            borderBottom: '1px solid rgba(201,169,110,0.1)',
           }}
-        />
-        {/* Vignette */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 40%, rgba(8,2,2,0.8) 100%)',
-          }}
-        />
+        >
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <span
+              className="font-body text-xs tracking-[0.2em] uppercase px-2 py-0.5 flex-shrink-0"
+              style={{ color: '#C9A96E', border: '1px solid rgba(201,169,110,0.3)' }}
+            >
+              {issue.tag}
+            </span>
+            <span className="font-body text-[#F4EDE0]/40 text-xs tracking-widest hidden sm:block truncate">
+              {issue.date}
+            </span>
+          </div>
 
-        {/* Back button */}
-        <div className="absolute top-6 left-6 z-20">
-          <Link
-            to="/#blog"
-            className="inline-flex items-center gap-2 font-body text-xs tracking-[0.25em] uppercase text-[#F4EDE0]/60 hover:text-[#C9A96E] transition-colors duration-300"
+          <h3
+            className="font-display text-[#FAF5EC] text-base sm:text-lg absolute left-1/2 -translate-x-1/2 whitespace-nowrap"
+            style={{ fontWeight: 400, pointerEvents: 'none' }}
           >
-            <span style={{ fontSize: '16px' }}>←</span> The Ruya Gallery
-          </Link>
+            {issue.title}
+          </h3>
+
+          <button
+            onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center text-[#F4EDE0]/50 hover:text-[#FAF5EC] transition-colors duration-200 ml-auto flex-shrink-0"
+            style={{ fontSize: '22px', lineHeight: 1, fontFamily: 'sans-serif' }}
+            aria-label="Close"
+          >
+            ×
+          </button>
         </div>
 
-        {/* Issue header content */}
+        {/* Image area */}
         <div
-          ref={headerRef}
-          className="fade-in absolute bottom-0 left-0 right-0 px-8 pb-8 z-10"
+          className="relative flex items-center justify-center overflow-auto flex-1"
+          style={{
+            border: '1px solid rgba(201,169,110,0.15)',
+            borderTop: 'none',
+            borderBottom: 'none',
+            background: 'rgba(8,2,2,0.6)',
+            minHeight: 0,
+          }}
         >
-          <div className="max-w-5xl mx-auto">
-            <div className="flex items-center gap-3 mb-3">
-              <span
-                className="font-body text-xs tracking-[0.2em] uppercase px-2 py-1"
-                style={{
-                  color: '#C9A96E',
-                  border: '1px solid rgba(201,169,110,0.3)',
-                  background: 'rgba(201,169,110,0.08)',
-                }}
-              >
-                {issue.tag}
-              </span>
-              <span className="font-body text-[#F4EDE0]/40 text-xs tracking-widest">{issue.date}</span>
-            </div>
-            <h1
-              className="font-display text-[#FAF5EC] mb-2"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 400, lineHeight: 1.1 }}
+          <img
+            src={issue.full}
+            alt={issue.title}
+            className="max-w-full"
+            style={{ maxHeight: 'calc(94vh - 120px)', objectFit: 'contain', display: 'block' }}
+            draggable={false}
+          />
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          className="flex items-center justify-between px-5 py-3 flex-shrink-0"
+          style={{
+            background: 'rgba(13,6,6,0.95)',
+            border: '1px solid rgba(201,169,110,0.2)',
+            borderTop: '1px solid rgba(201,169,110,0.1)',
+          }}
+        >
+          <p className="font-body text-[#F4EDE0]/40 text-xs leading-relaxed max-w-lg hidden sm:block">
+            {issue.desc}
+          </p>
+          <div className="flex items-center gap-3 ml-auto flex-shrink-0">
+            <span className="font-body text-[#F4EDE0]/20 text-xs hidden sm:block">
+              {issue.id} / {ISSUES.length}
+            </span>
+            <button
+              onClick={onClose}
+              className="font-body text-xs tracking-[0.25em] uppercase px-4 py-1.5 transition-all duration-200 hover:bg-[#C9A96E]/10"
+              style={{ color: '#C9A96E', border: '1px solid rgba(201,169,110,0.3)' }}
             >
-              {issue.title}
-            </h1>
-            <p className="font-body text-[#F4EDE0]/55 text-sm max-w-lg">{issue.desc}</p>
+              Close
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Tab switcher */}
-      <div
-        className="sticky top-0 z-30 flex items-center gap-0 border-b"
-        style={{
-          backgroundColor: 'rgba(13,6,6,0.97)',
-          backdropFilter: 'blur(12px)',
-          borderColor: 'rgba(201,169,110,0.12)',
-        }}
-      >
-        <div className="max-w-5xl mx-auto w-full flex items-center px-8">
-          {[
-            { key: 'mockup', label: 'Mockup Layout' },
-            { key: 'magazine', label: 'Magazine PDF' },
-          ].map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className="font-body text-xs tracking-[0.25em] uppercase py-4 px-6 transition-all duration-300 relative"
-              style={{
-                color: activeTab === tab.key ? '#C9A96E' : 'rgba(244,237,224,0.4)',
-                borderBottom: activeTab === tab.key ? '2px solid #C9A96E' : '2px solid transparent',
-                marginBottom: '-1px',
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
-
-          <div className="flex-1" />
-
-          {/* Download link */}
-          <a
-            href={activeTab === 'mockup' ? issue.mockup : issue.pdf}
-            download
-            className="font-body text-xs tracking-[0.2em] uppercase text-[#F4EDE0]/30 hover:text-[#C9A96E] transition-colors duration-300 py-4 px-2"
-          >
-            ↓ Download
-          </a>
-        </div>
-      </div>
-
-      {/* PDF / Mockup Viewer */}
-      <div className="max-w-5xl mx-auto px-4 py-10">
-        {/* ↓ CHANGED: added flex justify-center to center the iframe */}
-        <div
-         className="relative overflow-hidden flex justify-center items-center"
-         style={{
-         border: '1px solid rgba(201,169,110,0.15)',
-         background: 'rgba(255,255,255,0.02)',
-         minHeight: '80vh',
-        }}
-        >
-          {/* ↓ CHANGED: added margin: '0 auto' and removed w-full to allow centering */}
-          <iframe
-            key={activeTab}
-            src={`${activeTab === 'mockup' ? issue.mockup : issue.pdf}#toolbar=1&navpanes=0&view=FitH`}
-            title={`${issue.title} — ${activeTab === 'mockup' ? 'Mockup Layout' : 'Magazine PDF'}`}
-            style={{
-            width: '100%',
-            height: '85vh',
-            border: 'none',
-            display: 'block',
-            margin: '0 auto',
-            objectFit: 'contain',
-            objectPosition: 'center',
-          }}
-          />
-        </div>
-
-        {/* Fallback open link */}
-        <p className="font-body text-[#F4EDE0]/25 text-xs text-center mt-4 tracking-wide">
-          Having trouble viewing?{' '}
-          <a
-            href={activeTab === 'mockup' ? issue.mockup : issue.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#C9A96E]/60 hover:text-[#C9A96E] underline transition-colors"
-          >
-            Open in new tab
-          </a>
-        </p>
-      </div>
-
-      {/* Issue navigation */}
-      <div
-        className="border-t mt-4"
-        style={{ borderColor: 'rgba(201,169,110,0.1)' }}
-      >
-        <div className="max-w-5xl mx-auto px-8 py-10 flex items-center justify-between gap-6">
-          {prevIssue ? (
-            <Link
-              to={`/issue/${prevIssue.id}`}
-              className="group flex flex-col gap-1 max-w-xs"
-            >
-              <span className="font-body text-xs tracking-[0.25em] uppercase text-[#F4EDE0]/30 group-hover:text-[#C9A96E]/60 transition-colors">
-                ← Previous Issue
-              </span>
-              <span className="font-display text-[#FAF5EC]/70 text-lg group-hover:text-[#C9A96E] transition-colors" style={{ fontWeight: 400 }}>
-                {prevIssue.title}
-              </span>
-              <span className="font-body text-[#F4EDE0]/30 text-xs">{prevIssue.date} · {prevIssue.tag}</span>
-            </Link>
-          ) : <div />}
-
-          <Link
-            to="/#blog"
-            className="font-body text-xs tracking-[0.3em] uppercase text-[#F4EDE0]/40 border border-[#F4EDE0]/10 px-5 py-2 hover:border-[#C9A96E]/30 hover:text-[#C9A96E] transition-all duration-300 whitespace-nowrap"
-          >
-            All Issues
-          </Link>
-
-          {nextIssue ? (
-            <Link
-              to={`/issue/${nextIssue.id}`}
-              className="group flex flex-col gap-1 max-w-xs text-right"
-            >
-              <span className="font-body text-xs tracking-[0.25em] uppercase text-[#F4EDE0]/30 group-hover:text-[#C9A96E]/60 transition-colors">
-                Next Issue →
-              </span>
-              <span className="font-display text-[#FAF5EC]/70 text-lg group-hover:text-[#C9A96E] transition-colors" style={{ fontWeight: 400 }}>
-                {nextIssue.title}
-              </span>
-              <span className="font-body text-[#F4EDE0]/30 text-xs">{nextIssue.date} · {nextIssue.tag}</span>
-            </Link>
-          ) : <div />}
-        </div>
-      </div>
-
-      {/* Footer strip */}
-      <div
-        className="text-center py-6 border-t font-body text-[#F4EDE0]/20 text-xs tracking-[0.3em] uppercase"
-        style={{ borderColor: 'rgba(201,169,110,0.07)' }}
-      >
-        Ruya · Stories Beneath the Skin
-      </div>
+      <p className="absolute bottom-3 left-1/2 -translate-x-1/2 font-body text-[#F4EDE0]/12 text-xs tracking-[0.2em] pointer-events-none select-none hidden md:block">
+        Click outside · ESC to close
+      </p>
     </div>
+  )
+}
+
+export default function FeaturedWriter() {
+  const ref = useRef()
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+
+  // Issue 4 is the featured writer's issue
+  const featuredIssue = ISSUES.find((i) => i.id === 4)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) e.target.classList.add('visible')
+      }),
+      { threshold: 0.1 }
+    )
+    ref.current?.querySelectorAll('.fade-in').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <>
+      <section
+        id="writers"
+        ref={ref}
+        className="relative min-h-screen overflow-hidden"
+        style={{ backgroundColor: '#1C0706' }}
+      >
+        {/* Side issue strip */}
+        <div
+          className="absolute right-0 top-0 bottom-0 w-10 flex items-center justify-center"
+          style={{ backgroundColor: 'rgba(28,7,6,1)', borderLeft: '1px solid rgba(28,7,6,1)' }}
+        >
+          <p
+            className="font-body text-[#F4EDE0]/30 text-xs tracking-[0.3em] uppercase"
+            style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+          >
+            Issue 04 / 09 · April 2025 · Poetry
+          </p>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 pr-16">
+
+          {/* Breadcrumb nav */}
+          <div className="fade-in flex items-center gap-6 mb-20 text-xs tracking-[0.25em] uppercase text-[#F4EDE0]/25 font-body overflow-hidden">
+            <span className="whitespace-nowrap">← About Us</span>
+            <div className="flex-1 h-px bg-[#F4EDE0]/10" />
+            <span className="whitespace-nowrap hidden md:block">Where dreams, confessions, and whispered traces are captured</span>
+            <div className="flex-1 h-px bg-[#F4EDE0]/10" />
+            <span className="whitespace-nowrap">Blog →</span>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-20 items-center">
+
+            {/* Left – writer info */}
+            <div className="space-y-8">
+
+              <div className="fade-in">
+                <span className="text-[#C9A96E] text-xs tracking-[0.4em] uppercase font-body block mb-2">
+                  Featured Writer
+                </span>
+                <span className="text-[#F4EDE0]/40 text-xs tracking-[0.2em] font-body block mb-6">
+                  April Issue · Poetry
+                </span>
+                <h2
+                  className="font-display text-[#FAF5EC]"
+                  style={{ fontSize: 'clamp(3rem, 8vw, 7rem)', fontWeight: 300, lineHeight: 0.95 }}
+                >
+                  Aina
+                  <br />
+                  <span className="italic" style={{ color: '#C9A96E' }}>Amir</span>
+                </h2>
+              </div>
+
+              <div className="fade-in max-w-sm">
+                <p className="font-body italic text-[#F4EDE0]/60 text-base leading-relaxed">
+                  She writes in pauses, in the spaces between what was said and
+                  what was felt. Her words do not arrive loudly — they stay
+                  quietly.
+                </p>
+              </div>
+
+              <div className="fade-in flex gap-4 flex-wrap">
+                <button
+                  onClick={() => setLightboxOpen(true)}
+                  className="font-body text-xs tracking-[0.3em] uppercase text-[#FAF5EC] border border-[#FAF5EC]/30 px-6 py-3 hover:bg-[#FAF5EC] hover:text-[#1A0C0C] transition-all duration-300"
+                >
+                  Read Their Work
+                </button>
+              </div>
+
+            </div>
+
+            {/* Right – featured writer image */}
+            <div className="fade-in relative">
+              <div
+                className="overflow-hidden shadow-2xl"
+                style={{ maxWidth: '400px', marginLeft: 'auto', border: '1px solid rgba(201,169,110,0.1)' }}
+              >
+                <img
+                  src="/images/featured-writer.jpg"
+                  alt="Poetry and roses"
+                  className="w-full h-[460px] object-cover hover:scale-105 transition-transform duration-700"
+                  style={{ filter: 'brightness(0.85) sepia(10%)' }}
+                />
+              </div>
+              {/* Accent line */}
+              <div className="absolute -left-4 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-[#C9A96E]/35 to-transparent" />
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* Lightbox */}
+      {lightboxOpen && featuredIssue && (
+        <Lightbox
+          issue={featuredIssue}
+          onClose={() => setLightboxOpen(false)}
+          onPrev={() => {}}
+          onNext={() => {}}
+          hasPrev={false}
+          hasNext={false}
+        />
+      )}
+    </>
   )
 }
