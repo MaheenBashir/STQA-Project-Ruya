@@ -135,7 +135,7 @@ export default function FeaturedWriter() {
       <section
         id="writers"
         ref={ref}
-        className="relative min-h-screen overflow-hidden"
+        className="relative min-h-screen"
         style={{ backgroundColor: '#1C0706' }}
       >
         {/* Side issue strip */}
