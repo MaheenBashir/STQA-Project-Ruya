@@ -112,7 +112,6 @@ export default function IssuePage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    // Animate header in
     const timer = setTimeout(() => {
       headerRef.current?.classList.add('visible')
     }, 100)
@@ -246,26 +245,28 @@ export default function IssuePage() {
         </div>
       </div>
 
-      {/* PDF Viewer */}
+      {/* PDF / Mockup Viewer */}
       <div className="max-w-5xl mx-auto px-4 py-10">
+        {/* ↓ CHANGED: added flex justify-center to center the iframe */}
         <div
-          className="relative overflow-hidden"
+          className="relative overflow-hidden flex justify-center"
           style={{
             border: '1px solid rgba(201,169,110,0.15)',
             background: 'rgba(255,255,255,0.02)',
             minHeight: '80vh',
           }}
         >
-          {/* PDF embed */}
+          {/* ↓ CHANGED: added margin: '0 auto' and removed w-full to allow centering */}
           <iframe
             key={activeTab}
             src={`${activeTab === 'mockup' ? issue.mockup : issue.pdf}#toolbar=1&navpanes=0&view=FitH`}
             title={`${issue.title} — ${activeTab === 'mockup' ? 'Mockup Layout' : 'Magazine PDF'}`}
-            className="w-full"
             style={{
+              width: '100%',
               height: '85vh',
               border: 'none',
               display: 'block',
+              margin: '0 auto',
             }}
           />
         </div>
