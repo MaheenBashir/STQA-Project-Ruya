@@ -21,7 +21,7 @@ export default function FeaturedWriter() {
       id="writers"
       ref={ref}
       className="relative min-h-screen overflow-hidden"
-      style={{ backgroundColor: '#6B1A1A' }}
+      style={{ backgroundColor: '#3A0A0A' }}
     >
 
       {/* Side issue strip */}
@@ -97,7 +97,7 @@ export default function FeaturedWriter() {
               style={{ maxWidth: '400px', marginLeft: 'auto', border: '1px solid rgba(201,169,110,0.1)' }}
             >
               <img
-                src="/images/featured-writer.jpeg"
+                src="/images/featured-writer.jpg"
                 alt="Poetry and roses"
                 className="w-full h-[460px] object-cover hover:scale-105 transition-transform duration-700"
                 style={{ filter: 'brightness(0.85) sepia(10%)' }}
